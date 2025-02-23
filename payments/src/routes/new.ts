@@ -23,7 +23,6 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { token, orderId } = req.body;
-    console.log({ body: req.body });
 
     const order = await Order.findById(orderId);
 
@@ -51,6 +50,8 @@ router.post(
       },
       source: token, // Attach payment method to customer
     });
+
+    // console.log({ customer, user: req.currentUser });
 
     const charge = await stripe.charges.create({
       currency: "usd",
